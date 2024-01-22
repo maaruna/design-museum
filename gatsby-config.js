@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Ani's Gallery`,
-    description: "A Gatsby web application hosted at www.ani.gallery",
-    author: `Daniel Kolev`,
-    siteUrl: `https://ani.gallery/`,
+    title: `Hani's Gallery`,
+    description: "A Gatsby web application hosted at Vercel",
+    author: `SP`,
+    siteUrl: `https://design-museum.vercel.app/`,
   },
   plugins: [
     `gatsby-plugin-resolve-src`,
