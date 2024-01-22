@@ -10,8 +10,8 @@ const IndexPage = (): JSX.Element => {
   const [floor, setFloor] = useState<Mesh>();
   // Placeholder painting names and aspect ratios
   const paintings = [
-    { name: "samodiva", aspectRatio: 1.5 },
-    { name: "4", aspectRatio: 1.2 }
+    { name: "music1", aspectRatio: 1.5 },
+    { name: "music2", aspectRatio: 1.5 }
   ];
   const gap = 0.5; // Constant gap size
   
