@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { Suspense, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import Controls from "components/three/controls";
 import Gallery from "components/three/gallery";
@@ -8,30 +8,18 @@ import { Mesh } from "three";
 
 const IndexPage = (): JSX.Element => {
   const [floor, setFloor] = useState<Mesh>();
-  const gap = 1; // Define the constant gap you want between paintings
-  const [positions, setPositions] = useState<Array<[number, number, number]>>([]);
 
-  // Placeholder aspect ratios for "music1" and "music2"
-  // You should replace these with the actual aspect ratios of your paintings
-  const paintingData = [
-    { name: "music1", aspectRatio: 1.5 },
-    { name: "music2", aspectRatio: 1.5 },
-    // Add more paintings as needed
+  // Define a base position for the first painting
+  const basePositionX = 0; // Starting X position
+  const gap = 0.5; // Desired gap between paintings
+  const paintingWidth = 1.5; // Average painting width, adjust based on aspect ratio
+
+  // Calculate positions for each painting manually
+  const positions = [
+    [basePositionX, 1.6, -5.7], // Position for music1
+    [basePositionX + paintingWidth + gap, 1.6, -5.7], // Position for music2, shifted right by one painting width plus a gap
+    // Add more positions as needed for additional paintings
   ];
-
-  useEffect(() => {
-    let currentPositionX = 0; // Starting X position for the first painting
-
-    const newPositions = paintingData.map((painting, index) => {
-      const position: [number, number, number] = [currentPositionX, 1.6, -5.7];
-      // Assuming a constant height of 1.3 units to calculate the width using aspect ratio
-      const width = painting.aspectRatio * 1.3; 
-      currentPositionX += width + gap; // Update currentPositionX for the next painting
-      return position;
-    });
-
-    setPositions(newPositions);
-  }, [paintingData, gap]);
 
   return (
     <>
@@ -39,10 +27,9 @@ const IndexPage = (): JSX.Element => {
         <ambientLight />
         <Suspense fallback={null}>
           <Controls floor={floor} />
-          
-          {positions.map((position, index) => (
-            <Painting key={paintingData[index].name} name={paintingData[index].name} position={position} />
-          ))}
+
+          <Painting name="music1" position={positions[0]} />
+          <Painting name="music2" position={positions[1]} />
 
           <Gallery setFloor={setFloor} />
           <Preload all />
