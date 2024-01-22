@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import Controls from "components/three/controls";
 import Gallery from "components/three/gallery";
@@ -8,6 +8,26 @@ import { Mesh } from "three";
 
 const IndexPage = (): JSX.Element => {
   const [floor, setFloor] = useState<Mesh>();
+  // Placeholder painting names and aspect ratios
+  const paintings = [
+    { name: "samodiva", aspectRatio: 1.5 },
+    { name: "4", aspectRatio: 1.2 }
+  ];
+  const gap = 0.5; // Constant gap size
+  
+  const [paintingPositions, setPaintingPositions] = useState([]);
+
+  useEffect(() => {
+    let currentPositionX = 0; // Start position for the first painting
+    const positions = paintings.map(painting => {
+      // Calculate width based on aspect ratio and a fixed height, here assumed to be 1.3
+      const width = painting.aspectRatio * 1.3;
+      const position = [currentPositionX, 1.6, -5.7]; // Using fixed Y and Z from your original positions
+      currentPositionX += width + gap; // Update currentPositionX for the next painting
+      return position;
+    });
+    setPaintingPositions(positions);
+  }, [paintings, gap]);
 
   return (
     <>
@@ -15,9 +35,10 @@ const IndexPage = (): JSX.Element => {
         <ambientLight />
         <Suspense fallback={null}>
           <Controls floor={floor} />
-
-          <Painting name="music1" position={[0, 1.6, -5.7]} />
-          <Painting name="music2" position={[2, 1.6, -5.7]} />
+          
+          {paintingPositions.map((position, index) => (
+            <Painting key={paintings[index].name} name={paintings[index].name} position={position} />
+          ))}
 
           <Gallery setFloor={setFloor} />
           <Preload all />
