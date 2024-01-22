@@ -9,18 +9,26 @@ import { Mesh } from "three";
 const IndexPage = (): JSX.Element => {
   const [floor, setFloor] = useState<Mesh>();
 
-  // Define a base position for the first painting
+  // Configuration based on your initial setup
   const basePositionX = 0; // Starting X position
   const gap = 1.5; // Desired gap between paintings
   const paintingWidth = 1.5; // Average painting width, adjust based on aspect ratio
 
-  // Calculate positions for each painting manually
-  const positions = [
-    [basePositionX, 1.6, -5.7], // Position for music1
-    [basePositionX + paintingWidth + gap, 1.6, -5.7], // Position for music2, shifted right by one painting width plus a gap
-    [basePositionX + (paintingWidth + gap) * 2, 1.6, -5.7], // Position for music3, shifted right by two painting widths plus two gaps
-    // Add more positions as needed for additional paintings
-  ];
+  // Adjusting the approach to dynamically calculate positions for both sides
+  const numPaintings = 3; // Adjust based on the total number of paintings you plan to display
+  const positions = [];
+
+  // Calculate positions dynamically for both sides
+  // Left side (negative direction)
+  for (let i = 1; i <= numPaintings; i++) {
+    positions.unshift([basePositionX - (paintingWidth + gap) * i, 1.6, -5.7]);
+  }
+
+  // Center and Right side (positive direction)
+  positions.push([basePositionX, 1.6, -5.7]); // Center position for the first painting
+  for (let i = 1; i <= numPaintings; i++) {
+    positions.push([basePositionX + (paintingWidth + gap) * i, 1.6, -5.7]);
+  }
 
   return (
     <>
@@ -29,9 +37,9 @@ const IndexPage = (): JSX.Element => {
         <Suspense fallback={null}>
           <Controls floor={floor} />
 
-          <Painting name="music1" position={positions[0]} />
-          <Painting name="music2" position={positions[1]} />
-          <Painting name="music3" position={positions[2]} />
+          {positions.map((position, index) => (
+            <Painting key={`music${index+1}`} name={`music${index+1}`} position={position} />
+          ))}
 
           <Gallery setFloor={setFloor} />
           <Preload all />
