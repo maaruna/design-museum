@@ -11,7 +11,7 @@ const IndexPage = (): JSX.Element => {
 
   // Define a base position for the first painting
   const basePositionX = 0; // Starting X position
-  const gap = 2; // Desired gap between paintings
+  const gap = 1; // Desired gap between paintings
   const paintingWidth = 1.5; // Average painting width, adjust based on aspect ratio
 
   // Calculate positions for each painting manually
