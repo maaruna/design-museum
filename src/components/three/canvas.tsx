@@ -11,13 +11,14 @@ const IndexPage = (): JSX.Element => {
 
   // Define a base position for the first painting
   const basePositionX = 0; // Starting X position
-  const gap = 1; // Desired gap between paintings
+  const gap = 1.5; // Desired gap between paintings
   const paintingWidth = 1.5; // Average painting width, adjust based on aspect ratio
 
   // Calculate positions for each painting manually
   const positions = [
     [basePositionX, 1.6, -5.7], // Position for music1
     [basePositionX + paintingWidth + gap, 1.6, -5.7], // Position for music2, shifted right by one painting width plus a gap
+    [basePositionX + (paintingWidth + gap) * 2, 1.6, -5.7], // Position for music3, shifted right by two painting widths plus two gaps
     // Add more positions as needed for additional paintings
   ];
 
@@ -30,6 +31,7 @@ const IndexPage = (): JSX.Element => {
 
           <Painting name="music1" position={positions[0]} />
           <Painting name="music2" position={positions[1]} />
+          <Painting name="music3" position={positions[2]} />
 
           <Gallery setFloor={setFloor} />
           <Preload all />
