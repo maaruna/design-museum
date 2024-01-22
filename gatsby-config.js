@@ -3,7 +3,7 @@ module.exports = {
     title: `Hani's Gallery`,
     description: "A Gatsby web application hosted at Vercel",
     author: `SP`,
-    siteUrl: `https://design-museum.vercel.app/`,
+    siteUrl: `https://hani-museum.vercel.app/`,
   },
   plugins: [
     `gatsby-plugin-resolve-src`,
