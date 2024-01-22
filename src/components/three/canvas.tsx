@@ -15,7 +15,10 @@ const IndexPage = (): JSX.Element => {
         <ambientLight />
         <Suspense fallback={null}>
           <Controls floor={floor} />
-          <Painting name="samodiva" />
+
+          <Painting name="samodiva" position={[0, 1.6, -5.7]} />
+          <Painting name="4" position={[2, 1.6, -5.7]} />
+
           <Gallery setFloor={setFloor} />
           <Preload all />
         </Suspense>

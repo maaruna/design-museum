@@ -2,13 +2,12 @@ import { useTexture } from "@react-three/drei";
 import React from "react";
 import { MeshBasicMaterial, PlaneGeometry, sRGBEncoding } from "three";
 
-// this seems like a generic interface (maybe move it to a generic folder?)
-// todo: extract this
 interface PaintingProps {
   name: string;
+  position: [number, number, number]; // Add position to the props
 }
 
-const Painting = ({ name = "" }: PaintingProps): JSX.Element => {
+const Painting = ({ name = "", position }: PaintingProps): JSX.Element => {
   const texture = useTexture(`paintings/${name}.png`);
   texture.encoding = sRGBEncoding;
   const geometry = new PlaneGeometry(1, 1.3);
@@ -16,13 +15,10 @@ const Painting = ({ name = "" }: PaintingProps): JSX.Element => {
     map: texture,
   });
 
-  // the next values are hardcoded just for the demo
-  // ideally we should have them as props + useHelper hook for the box
-  // todo: refactor
   return (
     <>
-      <mesh position={[0, 1.6, -5.7]} args={[geometry, material]} />
-      <mesh position={[0.01, 1.61, -5.76]}>
+      <mesh position={position} args={[geometry, material]} />
+      <mesh position={[position[0] + 0.01, position[1] + 0.01, position[2] - 0.06]}>
         <boxGeometry args={[1.1, 1.4, 0.1]} />
         <meshStandardMaterial color="PeachPuff" />
       </mesh>
